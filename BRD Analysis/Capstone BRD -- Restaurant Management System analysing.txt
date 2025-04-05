@@ -1,0 +1,185 @@
+1- Define Scope (Restaurant Management System)
+
+2- Mandatory Object (Admin, Client, Driver)
+
+3- Software Type (Customize => Entities + conditions for relationships) - (Requirement Techniques => Questioner / interview / prototyping)
+
+4- Summarizing system objects ( Abstraction)
+	(id, createby, updateby, isActive, updateDate, creationDate)
+	A- Admin (full name, email, password)
+	B- Client (full name, email, password, bio, image, nationality, phone)
+	C- Driver (full name, email, password, bio, image, nationality, phone) 
+	D- Staff (full name, role (e.g., chef, server), shift timings, attendance)
+	E- Menu (name, category, price, availability, discounts, description, image?)
+	F- Order (table number, customer name (optional), order date, status (e.g., pending, completed), total amount )
+	G- Service (customer name, contact details, number of guests, reservation date, table number) 
+	H- Contact Details ( phone number 1, phone number 2, Facebook link, WhatsApp link)
+	I- Feedback ( feedback message, rate amount)
+
+5- Generalization & specialization (Restructuring)
+Specialization in:
+	A- Menu items ---> Categories (Food, Drinks, Desserts, All)
+
+Generalization in:
+	A- Admin , Staff, Client, Driver, Business Owner, Developer,...etc.(any person role). ---> Users
+	--> Users, Menu, Order, Services, Contact Details, Feedback ---> Parent Entity(id ...)
+	
+6- Define Relationships
+
+•	One Role has many Users.
+•	One User (client) has many Orders.
+•	One Order has many Order Items.
+•	One Item can belong to one Category.
+•	One Order Item has one Item and belongs to one Order.
+•	One Driver can be assigned to many Orders.
+•	One permission has many roles & one role has many permissions.
+•	One menu items has many options & one option can be related to many items.
+•	One user has many notifications & one notification related to many users.
+
+
+	1) Inheritance
+	A- Combine everything in one table // When Child mostly the same // Shared features // features not in common will be nullable (optional) (Users table)
+	B- Create child & add the shared element in each child induvial  (Parent Entity)
+
+
+	2) Composition
+	Users (Client -->  ( 1-M ) Order // (1-1) services )// (Client--> (M-M) rating (feedback)  كل شخص رح يقيم اكثر من ايتمز واوردرز وكل ايتمز واوردرز رح يتم تقييمه من قبل اكثر من شخص )
+	(Staff --> (M-M) Menu Items, // (1-M) services // (M-M) order)
+	Menu items
+	Order
+	Reservation
+	Feedback (Weak entity ==> object with strong independency with another entity // or table delivered from relationship (M-M)) وجوده معتمد على تفاعل مكونين مع بعضهم البعض
+	Multi dependent ---> Relationship in same name // Feedback(Menu items & Person & Orders)
+	Contact Details ( Staff & Client)
+
+==================================================================================== Result 1 ==============================================================================================
+									System Object & Relationship
+============================================================================================================================================================================================
+7- Implement ER Diagram (normalized)
+	Users  
+	Roles 
+	Permissions
+	Menu items
+	Categories
+	Orders
+	Order Items (many-to-many: order can have many items)
+	Options
+	item options
+	Payments
+	Discounts (weak) --> optional
+	Notifications
+	Delivery Locations
+	//Contact Details (Weak entity)
+	Rating (Weak entity)
+	Reports
+	Issues & Suggestions --> optional
+	Services (chats, supports, calls...)
+	History (between orders & clients)
+
+8- Implement data base (Tables & Constrains)
+
+	A- Denormalization (Actors, Objects) or Normalization ?? which approach ==> Normalized (Actors, Objects, Lookups (Nationality, Category, ))
+        
+
+********************************************************************************************************************************************************************************************
+Analyzing steps:
+
+0- Admin account should be available before anything (built-in / predefined)
+
+1- Admin Will log into the system
+
+2- Admin should be able to manage menu. (CRUD)
+	--> Admin should be able to add/ update menu items by (id, name English, name Arabic, description English, description Arabic, image, price, category id, availability, discount id)
+	--> Admin should be able to explore menu items by (id, name English, name Arabic, category, price, availability, discount)
+	--> Admin should be able to delete menu items.
+
+3- Admin should be able to manage orders. (CRUD)
+	--> Admin should be able to add/ update orders by (id, client id (FK to Users), status (Active, On Shipment, Completed, Canceled), total price, discount id).
+	--> Admin should be able to explore orders by (id, client id (FK to Users), status (Active, On Shipment, Completed, Canceled), total price, discount id).
+	--> Admin should be able approve/ disapprove Orders. 
+
+4- Admin should be able to manage staffs. (CRUD)
+	--> Admin should be able to add/ update staff by (id, first name, last name, email, phone, role id (foreign key to Roles), is verified, OTP code).
+	--> Admin should be able to explore staff by (id, first name, last name, email, phone, role id (foreign key to Roles), is verified).
+	--> Admin should be able deactivate/ activate staff account. 
+
+5- Admin should be able to manage drivers. (CRUD)
+	--> Admin should be able to add/ update driver by (id, first name, last name, email, phone, role id (foreign key to Roles), is verified, OTP code).
+	--> Admin should be able to explore drivers by (id, first name, last name, email, phone, role id (foreign key to Roles), is verified).
+	--> Admin should be able deactivate/ activate driver account. 
+
+6- Admin should be able to manage services. (CRUD)
+	--> Admin should be able to add/ update services by making tables for services like: chats, supports, issues, reports, etc.
+	--> Admin should be able to explore services.
+	--> Admin should be able approve/ disapprove services. 
+
+7- Admin should be able to manage permissions. (CRUD)
+	--> Admin should be able to add/ update permissions by (id, name) lookup
+	--> Admin should be able to explore permissions by (id, user id, name).
+	--> Admin should be able approve/ disapprove permissions. 
+
+8- Admin should be able to manage payments. (CRUD)
+	--> Admin should be able to add/ update payments by (id, order id, amount, method, paid at). 
+	--> Admin should be able to explore payments by (id, order id, amount, method, paid at).
+	--> Admin should be able approve/ disapprove payments. 
+
+9- Admin should be able to manage notifications. (CRUD)
+	--> Admin should be able to add/ update notifications by (id, user id, title, message, type, is read). 
+	--> Admin should be able to explore notifications by (id, user id, title, message, type, is read).
+	--> Admin should be able approve/ disapprove notifications. 
+
+10- Admin should be able to manage discounts. (CRUD)
+	--> Admin should be able to add/ update discounts by (id, user id, title, description, start date, end date, limit, code). 
+	--> Admin should be able to explore discounts by (id, user id, title, description, start date, end date, limit, code).
+	--> Admin should be able approve/ disapprove discounts. 
+
+11- Admin should be able to manage issues suggestions. (CRUD)
+	--> Admin should be able to add/ update issues suggestions by (id, user id, title, message, type, status). 
+	--> Admin should be able to explore issues suggestions by (id, user id, title, message, type, status).
+	--> Admin should be able approve/ disapprove issues suggestions. 
+
+12- Admin should be able to manage reports. (CRUD)
+	--> Admin should be able to add/ update reports by (id, user id, title, description,  status). 
+	--> Admin should be able to explore reports by (id, user id, title, description, status).
+	--> Admin should be able approve/ disapprove reports.  
+
+13- Admin should be able to generate reports depends on sales, staff performance, services and inventory management.
+
+14- Admin should be able to explore clients by (id, first name, last name, email, phone, role id (foreign key to Roles), is verified, is logged, OTP code).
+
+15- Admin should be able to explore drivers by (id, first name, last name, email, phone, role id (foreign key to Roles), is verified, order count).
+
+16- Client should be able to login.
+
+17- Client should be able to explore menu items.
+
+18- Client should be able to make orders.
+
+19- Client should be able to get order details.
+
+20- Client should be able to get services (should be able to chat with driver or staff and get supports). 
+
+21- Client should be able to track delivery status. 
+
+22- Client should be able to explore & use payment options.
+
+23- Client should be able to rate orders with feedback (message). 
+
+24- Client should be able to logout.
+
+25- Driver should be able to login.
+
+26- Driver should be able to explore orders by (id, client id (FK to Users), status (Active, On Shipment, Completed, Canceled), total price, discount id).
+
+27- Driver should be able to accept/ cancel orders.
+
+28- Driver should be able to get order details.
+
+29- Driver should be able to get client details.
+
+30- Driver should be able to update payments.
+
+31- Driver should be able to rate clients with feedback.
+
+32- Driver should be able to logout.
+
