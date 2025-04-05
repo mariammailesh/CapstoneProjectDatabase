@@ -11,8 +11,8 @@
 	C- Driver (full name, email, password, bio, image, nationality, phone) 
 	D- Staff (full name, role (e.g., chef, server), shift timings, attendance)
 	E- Menu (name, category, price, availability, discounts, description, image?)
-	F- Order (table number, customer name (optional), order date, status (e.g., pending, completed), total amount )
-	G- Service (customer name, contact details, number of guests, reservation date, table number) 
+	F- Order ( customer name (optional), order date, status (e.g., pending, completed), total amount )
+	G- Service 
 	H- Contact Details ( phone number 1, phone number 2, Facebook link, WhatsApp link)
 	I- Feedback ( feedback message, rate amount)
 
