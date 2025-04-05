@@ -47,32 +47,32 @@ A SQL Server database designed for a food delivery application supporting multil
 
 ## Relationship analysis
 %% Relationships
-    Items ||--|{ Categories : categorized_as
-    Items ||--o{ Order_Items : contains
-    Roles ||--|{ Users : related_to
-    Clients ||--o{ Orders : places
-    Orders ||--o{ Order_Items : contains
-    Orders ||--|{ DeliveryLocations : assigned
-    Drivers ||--o{ DeliveryLocations : fulfills
-    Orders ||--|{ Payments : has
-    Clients ||--|{ Payments : has 
-    Clients ||--o{ Ratings : add
-    Clients ||--o| Orders_History : has
-    Orders_History ||--|{ Orders:has
-    Orders ||--o{ Chats : has
-    Clients ||--o{ Chats : communicates
-    Drivers ||--o{ Chats : communicates
-    Orders |o--o{ Ratings : has
-    Roles |{--|{ Permissions : has
-    Items ||--|| ItemOptions : has 
-    ItemOptions ||--|{ Options : has 
-    Users |{--|{ Notifications : has 
-    Users |{--|{ Issues_Suggestions : has 
-    Admins ||--|{ Discounts : make 
-    Discounts ||--|| Discount_items : has 
-    Discounts ||--|| Discount_Categories : has 
-    Items ||--|| Discount_items : has 
-    Categories ||--|| Discount_Categories : has
-    Users ||--|{ Reports : has
+    Items ||--|{ Categories : categorized_as<br>
+    Items ||--o{ Order_Items : contains<br>
+    Roles ||--|{ Users : related_to<br>
+    Clients ||--o{ Orders : places<br>
+    Orders ||--o{ Order_Items : contains<br>
+    Orders ||--|{ DeliveryLocations : assigned<br>
+    Drivers ||--o{ DeliveryLocations : fulfills<br>
+    Orders ||--|{ Payments : has<br>
+    Clients ||--|{ Payments : has <br>
+    Clients ||--o{ Ratings : add<br>
+    Clients ||--o| Orders_History : has<br>
+    Orders_History ||--|{ Orders:has<br>
+    Orders ||--o{ Chats : has<br>
+    Clients ||--o{ Chats : communicates<br>
+    Drivers ||--o{ Chats : communicates<br>
+    Orders |o--o{ Ratings : has<br>
+    Roles |{--|{ Permissions : has<br>
+    Items ||--|| ItemOptions : has <br>
+    ItemOptions ||--|{ Options : has <br>
+    Users |{--|{ Notifications : has <br>
+    Users |{--|{ Issues_Suggestions : has <br>
+    Admins ||--|{ Discounts : make <br>
+    Discounts ||--|| Discount_items : has <br>
+    Discounts ||--|| Discount_Categories : has <br>
+    Items ||--|| Discount_items : has <br>
+    Categories ||--|| Discount_Categories : has<br>
+    Users ||--|{ Reports : has<br>
     
 For detailed implementation and complete schema details, refer to the SQL files.
