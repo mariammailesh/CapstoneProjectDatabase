@@ -133,7 +133,8 @@ CREATE TABLE Discounts (
     end_date DATETIME,
     Limit_Amount FLOAT,
     code INT,
-    status VARCHAR(50),
+    FK_Discount_Status INT
+        FOREIGN KEY (FK_Discount_Status) REFERENCES Lookup_Items(Id),
     is_active BIT,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
@@ -146,7 +147,8 @@ CREATE TABLE Orders (
     Client_ID INT NOT NULL,
     Driver_ID INT,
     Discount_ID INT,
-    Order_Status VARCHAR(50) NOT NULL,
+    FK_Order_Status INT
+        FOREIGN KEY (FK_Order_Status) REFERENCES Lookup_Items(Id),
     Total_Price FLOAT,
     is_active BIT,
     created_by VARCHAR(100),
@@ -207,7 +209,8 @@ CREATE TABLE Payments (
     Id INT PRIMARY KEY IDENTITY(1,1),
     Order_ID INT,
     Client_ID INT,
-    Payment_Method VARCHAR(50),
+    FK_Payment_Method INT
+        FOREIGN KEY (FK_Payment_Method) REFERENCES Lookup_Items(Id),
     Amount FLOAT,
     Paid_At DATETIME,
     CONSTRAINT FK_Payments_Order FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID),
@@ -255,7 +258,8 @@ CREATE TABLE Notifications (
     User_ID INT,
     Title VARCHAR(255),
     Message VARCHAR(MAX),
-    Type VARCHAR(50),
+    FK_Notification_Type INT
+        FOREIGN KEY (FK_Notification_Type) REFERENCES Lookup_Items(Id),
     is_read BIT,
     is_active BIT,
     created_by VARCHAR(100),
@@ -270,7 +274,8 @@ CREATE TABLE Issues_Suggestions (
     User_ID INT,
     Title VARCHAR(255),
     Message VARCHAR(MAX),
-    Type VARCHAR(50),
+     FK_Issue_Type INT
+        FOREIGN KEY (FK_Issue_Type) REFERENCES Lookup_Items(Id),
     status VARCHAR(50),
     is_active BIT,
     created_by VARCHAR(100),
@@ -363,4 +368,23 @@ CREATE TABLE Role_Permissions (
     CONSTRAINT PK_Role_Permissions PRIMARY KEY (Role_Id, Permission_Id),
     CONSTRAINT FK_RolePermissions_Role FOREIGN KEY (Role_Id) REFERENCES Roles(Role_Id),
     CONSTRAINT FK_RolePermissions_Permission FOREIGN KEY (Permission_Id) REFERENCES Permissions(Permission_Id)
+);
+
+-- Table to define the type/category of lookup
+CREATE TABLE Lookup_Types (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Name_En VARCHAR(100) NOT NULL,
+    Name_Ar VARCHAR(100) NULL,
+    Description VARCHAR(255) NULL
+);
+
+-- Table to define each value (item) under each type
+CREATE TABLE Lookup_Items (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    FK_Lookup_Type INT NOT NULL,
+    Value_En VARCHAR(100) NOT NULL,
+    Value_Ar VARCHAR(100),
+    is_active BIT DEFAULT 1,
+    created_at DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (FK_Lookup_Type) REFERENCES Lookup_Types(Id)
 );
