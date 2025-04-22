@@ -1,6 +1,6 @@
 CREATE DATABASE [E-Single Restaurant Management System]; --Create database for Foodtek app
 
-USE [E-Single Restaurant Management System]; --Use Foodtek database to add objects
+USE [E-Single Restaurant Management System]; --Use database to add objects
 
 CREATE TABLE Roles (
 	Role_Id		INT PRIMARY KEY IDENTITY(1,1),
